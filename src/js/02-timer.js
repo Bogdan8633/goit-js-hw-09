@@ -59,24 +59,17 @@ const timer = {
       const timerComponents = convertMs(counting);
       updateClockFace(timerComponents);
       if (counting <= 0) {
-        stopInterval();
+        stopInterval(this.intervalID);
       }
     }, 1000);
   },
 };
 
-function stopInterval() {
-  clearInterval(this.intervalID);
-  console.log(`Interval with id ${this.intervalID} has stopped!`);
-  updateClockFace(0, 0, 0, 0);
+function stopInterval(interval) {
+  clearInterval(interval);
+  console.log(`Interval with id ${interval} has stopped!`);
+  setStartTimer(0, 0, 0, 0);
 }
-
-// function stopInterval(data) {
-//   if (data <= 0) {
-//     clearInterval(this.intervalID);
-//     updateClockFace(0, 0, 0, 0);
-//   }
-// }
 
 function onStartBtnClick() {
   timer.onClose();
@@ -110,7 +103,14 @@ function addLeadingZero(value) {
 
 function updateClockFace({ days, hours, minutes, seconds }) {
   refs.daysEl.textContent = `${days}`;
-  refs.hoursEl.textContent = `${days}`;
+  refs.hoursEl.textContent = `${hours}`;
   refs.minutesEl.textContent = `${minutes}`;
   refs.secondsEl.textContent = `${seconds}`;
+}
+
+function setStartTimer(a, b, c, d) {
+  refs.daysEl.textContent = addLeadingZero(a);
+  refs.hoursEl.textContent = addLeadingZero(b);
+  refs.minutesEl.textContent = addLeadingZero(c);
+  refs.secondsEl.textContent = addLeadingZero(d);
 }
