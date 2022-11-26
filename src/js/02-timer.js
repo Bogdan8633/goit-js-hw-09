@@ -55,10 +55,9 @@ const timer = {
 
     this.intervalID = setInterval(() => {
       counting = counting -= 1000;
-      console.log(`Це counting: ${counting}`);
       const timerComponents = convertMs(counting);
       updateClockFace(timerComponents);
-      if (counting <= 0) {
+      if (counting <= 1000) {
         stopInterval(this.intervalID);
       }
     }, 1000);
@@ -68,7 +67,6 @@ const timer = {
 function stopInterval(interval) {
   clearInterval(interval);
   console.log(`Interval with id ${interval} has stopped!`);
-  setStartTimer(0, 0, 0, 0);
 }
 
 function onStartBtnClick() {
@@ -106,11 +104,4 @@ function updateClockFace({ days, hours, minutes, seconds }) {
   refs.hoursEl.textContent = `${hours}`;
   refs.minutesEl.textContent = `${minutes}`;
   refs.secondsEl.textContent = `${seconds}`;
-}
-
-function setStartTimer(a, b, c, d) {
-  refs.daysEl.textContent = addLeadingZero(a);
-  refs.hoursEl.textContent = addLeadingZero(b);
-  refs.minutesEl.textContent = addLeadingZero(c);
-  refs.secondsEl.textContent = addLeadingZero(d);
 }
